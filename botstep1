@@ -1,0 +1,35 @@
+//requires the discord.js module/libraries
+const Discord = require('discord.js');
+
+const { prefix, token } = require('./config.json');
+
+//create a new discord client
+const client = new Discord.Client();
+
+//when client is ready run this code
+//will only trigger one time after running
+client.once('ready', ()=> {
+    console.log('Ready!');
+});
+
+client.on('message', message =>{
+    if (!message.content.startsWith(prefix) || message.author.bot) return;
+
+	const args = message.content.slice(prefix.length).trim().split(' ');
+	const command = args.shift().toLowerCase();
+
+    if (command === 'time') {
+        message.channel.send('time to play videogames :)');
+    }
+    else if(command === 'add'){
+        let num = Math.floor(Math.random()*args.length);
+        console.log(`oops${num}`)
+        message.channel.send(args[num]);
+    }
+    
+
+})
+
+
+//discord bot token
+client.login(token);
